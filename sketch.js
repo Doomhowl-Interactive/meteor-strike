@@ -2,6 +2,9 @@ let cameraX = 200;
 let cameraY = -55;
 let rocketTexture;
 
+let crystalBlue;
+let crystalGreen;
+
 let texture;
 let velX = 0;
 let velY = 0;
@@ -19,12 +22,34 @@ const delta = () => deltaTime / 1000;
 function preload(){
     texture = loadImage("assets/robot.png");
     rocketTexture = loadImage("assets/spaceship2.png");
+
+    crystalBlue = loadImage("assets/BlueCrystal.png");
+    crystalGreen = loadImage("assets/CrystalGreen.png");
 }
 
 function unblurCanvas() {
     const ctx = document.querySelector("canvas").getContext("2d");
     ctx.imageSmoothingEnabled = false;
     ctx.style = "image-rendering: pixelated";
+}
+
+function drawCrystal(x, y, value){
+    push();
+    translate(-cameraX, -cameraY);
+    translate(x,y);
+    switch (value){
+        case 0: {
+                image(crystalBlue,0,0,20,20);
+            }
+            break;
+        case 1: {
+                image(crystalGreen,0,0,20,23);
+            }
+            break;
+        default:
+            throw new Error("No crystal with value " + value);
+    }
+    pop();
 }
 
 class TerrainLayer {
@@ -124,7 +149,11 @@ function drawRobot() {
 
 function draw() {
     background(11);
+    noStroke();
     renderBackground();
     drawRocket();
     drawRobot();
+
+    drawCrystal(370,50,0);
+    drawCrystal(420,70,1);
 }
