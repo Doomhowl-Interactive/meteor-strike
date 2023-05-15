@@ -1,6 +1,3 @@
-let primary = 0;
-let secondary = 200;
-
 let cameraX = 200;
 let cameraY = -55;
 let rocketTexture;
@@ -27,14 +24,16 @@ function preload(){
 function unblurCanvas() {
     const ctx = document.querySelector("canvas").getContext("2d");
     ctx.imageSmoothingEnabled = false;
+    ctx.style = "image-rendering: pixelated";
 }
 
 class TerrainLayer {
-    constructor(yOffset, yScale, paralax=1, spacing=30){
+    constructor(col, yOffset, yScale, paralax=1, spacing=30){
         this.yOffset = yOffset;
         this.yScale = yScale;
         this.paralax = paralax;
         this.spacing = spacing;
+        this.col = col;
     }
 
     graph(i){
@@ -44,15 +43,23 @@ class TerrainLayer {
     draw(){
         push();
         translate(-cameraX*this.paralax, -cameraY-this.yOffset*this.paralax);
-        for (let x = 0; x <= 100; x++) {
-            line((x-1)*this.spacing,this.graph(x-1),(x)*this.spacing,this.graph(x));
+        fill(this.col);
+        beginShape();
+        vertex(0,height);
+        const count = 30;
+        for (let x = 0; x <= count; x++) {
+            vertex((x)*this.spacing,this.graph(x));
         }
+        vertex(count*this.spacing,height);
+        endShape(CLOSE)
         pop();
     }
 };
 
 function renderBackground() {
-    const terrain = [new TerrainLayer(-20,30), new TerrainLayer(80,30,0.4,20) ];
+    const front = color(85, 79, 87);
+    const back = color(200);
+    const terrain = [new TerrainLayer(front,80,30,0.4,20), new TerrainLayer(color(180),-20,30) ];
     for (layer of terrain){
         layer.draw();
     }
@@ -77,7 +84,6 @@ function drawRocket() {
 function drawRobot() {
     push();
         translate(width/2,height/2);
-        fill(primary);
         image(texture,0,0);
     pop();
 
@@ -117,7 +123,7 @@ function drawRobot() {
 }
 
 function draw() {
-    background(secondary);
+    background(11);
     renderBackground();
     drawRocket();
     drawRobot();
