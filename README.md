@@ -1,7 +1,7 @@
 # Unknown World (game jam prototype)
 
-You are a robot on an unknown planet.
-You must collect gems by flying through levels.
-You are attached to a rope that feeds you electricity.
+You are a robot on an unknown planet attached to a wire that feeds you electricity.
 
-when you don't collect materials in time you die.
+Collect gems by flying through levels.
+
+When your power runs out you die.
