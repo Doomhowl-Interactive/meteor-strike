@@ -1,8 +1,9 @@
 let primary = 0;
 let secondary = 200;
 
-let cameraX = 0;
-let cameraY = 0;
+let cameraX = -90;
+let cameraY = -55;
+let rocketTexture;
 
 let texture;
 let velX = 0;
@@ -13,6 +14,7 @@ const delta = () => deltaTime / 1000;
 
 function preload(){
     texture = loadImage("assets/robot.png");
+    rocketTexture = loadImage("assets/spaceship2.png");
 }
 
 function unblurCanvas() {
@@ -30,8 +32,7 @@ function setup() {
 function drawRocket() {
     push();
     translate(-cameraX, -cameraY);
-    fill(primary);
-    rect(-10, 0, 50, 10);
+    image(rocketTexture, 0, 0, 32,64);
     pop();
 }
 
