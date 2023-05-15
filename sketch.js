@@ -30,9 +30,11 @@ function unblurCanvas() {
 }
 
 class TerrainLayer {
-    constructor(yOffset, yScale){
+    constructor(yOffset, yScale, paralax=1, spacing=30){
         this.yOffset = yOffset;
         this.yScale = yScale;
+        this.paralax = paralax;
+        this.spacing = spacing;
     }
 
     graph(i){
@@ -40,23 +42,20 @@ class TerrainLayer {
     }
 
     draw(){
-        const seg = width / 10;
-        for (let x = cameraX; x <= cameraX+width+seg; x += seg) {
-            let j = x / seg;
-            let smoothX = Math.floor(cameraX) % seg;
-            line(x-seg-smoothX,this.graph(j-1),x-smoothX,this.graph(j));
+        push();
+        translate(-cameraX*this.paralax, -cameraY-this.yOffset*this.paralax);
+        for (let x = 0; x <= 100; x++) {
+            line((x-1)*this.spacing,this.graph(x-1),(x)*this.spacing,this.graph(x));
         }
+        pop();
     }
 };
 
 function renderBackground() {
-    push();
-    translate(-cameraX, -cameraY);
-    const terrain = [new TerrainLayer(20,50)];
+    const terrain = [new TerrainLayer(-20,30), new TerrainLayer(80,30,0.4,20) ];
     for (layer of terrain){
         layer.draw();
     }
-    pop();
 }
 
 function setup() {
