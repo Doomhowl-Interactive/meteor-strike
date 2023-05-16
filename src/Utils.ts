@@ -12,30 +12,12 @@ function unblurCanvas() {
     (ctx as any).style = "image-rendering: pixelated";
 }
 
-const formats = ["png", "jpg", "jpeg", "gif", "webp", "bmp", "ico", "svg"];
 const _images = new Map<string, p5.Image>();
-function loadGImage(path: string) {
-    let image = null;
-    for (const format of formats) {
-        if (image !== null) {
-            break;
-        }
-        image = loadImage(
-            path + "." + format,
-            () => console.debug("Loaded image " + path),
-            () => {}
-        );
-    }
-    if (image === null) {
-        throw new Error("Could not load image " + path);
-    }
-    return image;
-}
-function gTexture(img: string) {
+function gTexture(img: string, format:string = "png") {
     if (_images.has(img)) {
         return _images.get(img);
     }
-    const loaded = loadGImage(`assets/${img}`);
+    const loaded = loadImage(`assets/${img}.${format}`);
     _images.set(img, loaded);
     return loaded;
 }

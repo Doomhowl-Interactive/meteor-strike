@@ -6,30 +6,41 @@ interface TerrainLayer {
     col: p5.Color;
 }
 
-function graphTerrainLayer(layer: TerrainLayer, i: number) {
-    return rng(Math.abs(Math.floor(i))) * layer.yScale;
-}
+class Terrain implements Drawable {
+    constructor(public layers: TerrainLayer[]) {}
 
-function drawTerrainLayer(layer: TerrainLayer) {
-    push();
-    translate(
-        -cameraX * layer.parallax,
-        -cameraY - layer.yOffset * layer.parallax
-    );
-    fill(layer.col);
-    beginShape();
-    vertex(0, height);
-    const count = 30;
-    for (let x = 0; x <= count; x++) {
-        vertex(x * layer.spacing, graphTerrainLayer(layer, x));
+    graph(layer: TerrainLayer, i: number) {
+        const index = Math.abs(Math.floor(i));
+        return rng(index) * layer.yScale;
     }
-    vertex(count * layer.spacing, height);
-    endShape(CLOSE);
-    pop();
+
+    drawLayer(layer: TerrainLayer) {
+        push();
+        translate(
+            -cameraX * layer.parallax,
+            -cameraY - layer.yOffset * layer.parallax
+        );
+        fill(layer.col);
+        beginShape();
+        vertex(0, height);
+        const count = 30;
+        for (let x = 0; x <= count; x++) {
+            vertex(x * layer.spacing, this.graph(layer, x));
+        }
+        vertex(count * layer.spacing, height);
+        endShape(CLOSE);
+        pop();
+    }
+
+    draw(): void {
+        for (const layer of this.layers) {
+            this.drawLayer(layer);
+        }
+    }
 }
 
-function renderBackground() {
-    const terrain: TerrainLayer[] = [
+function createTerrain() {
+    return new Terrain([
         {
             col: color(85, 79, 87),
             yOffset: 80,
@@ -44,8 +55,5 @@ function renderBackground() {
             parallax: 0.6,
             spacing: 30,
         },
-    ];
-    for (const layer of terrain) {
-        drawTerrainLayer(layer);
-    }
+    ]);
 }

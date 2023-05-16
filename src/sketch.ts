@@ -45,6 +45,9 @@ class Rocket implements Drawable {
 }
 
 class Robot implements Drawable {
+    width = 16;
+    height = 22;
+
     update(): void {
         const accel = 0.5;
         if (keyIsDown(LEFT_ARROW)) {
@@ -83,9 +86,16 @@ class Robot implements Drawable {
     draw(): void {
         this.update();
 
+        const flipX = velX < 0;
+
         push();
         translate(width / 2, height / 2);
-        image(gTexture("robot-idle"), 0, 0);
+        translate(this.width / -2, this.width / -2);
+        if (flipX) {
+            image(gTexture("robot_mirror"), 0, 0, this.width, this.height);
+        } else {
+            image(gTexture("robot"), 0, 0, this.width, this.height);
+        }
         pop();
     }
 }
@@ -98,6 +108,7 @@ function setup() {
     unblurCanvas();
 
     world = [
+        createTerrain(),
         new Rocket(),
         new Robot(),
         new Crystal(370, 50, 0),
@@ -108,6 +119,5 @@ function setup() {
 function draw() {
     background(11);
     noStroke();
-    renderBackground();
     world.forEach((obj) => obj.draw());
 }
