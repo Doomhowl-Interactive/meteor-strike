@@ -1,13 +1,23 @@
 {
     "compilerOptions": {
-        "module": "none",
-        "noImplicitAny": true,
-        "outFile": "./dist/sketch.js",
-        "preserveConstEnums": true,
-        "removeComments": true,
-        "rootDir": "./src/",
-        "sourceMap": true,
         "target": "ES2020",
-        "moduleResolution": "node"
-    }
+        "useDefineForClassFields": true,
+        "module": "ESNext",
+        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+        "skipLibCheck": true,
+
+        /* Bundler mode */
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+
+        /* Linting */
+        "strict": true,
+        "noUnusedLocals": false,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true
+    },
+    "include": ["src"]
 }

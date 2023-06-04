@@ -1,3 +1,6 @@
+import { delta, p } from "../main";
+import { Drawable } from "./Drawable";
+
 class Asteroid implements Drawable {
     constructor(public x: number, public y: number) {}
 
@@ -22,15 +25,15 @@ class AsteroidHolder implements Drawable {
     }
 
     draw(): void {
-        stroke(255, 0, 0);
-        line(this.leftBounds, 0, this.leftBounds, height);
-        line(this.rightBounds, 0, this.rightBounds, height);
-        noStroke();
+        p.stroke(255, 0, 0);
+        p.line(this.leftBounds, 0, this.leftBounds, p.height);
+        p.line(this.rightBounds, 0, this.rightBounds, p.height);
+        p.noStroke();
     }
 
     spawnAsteroid() {
-        const x = random(this.leftBounds, this.rightBounds);
-        const y = random(-200, -50);
+        const x = p.random(this.leftBounds, this.rightBounds);
+        const y = p.random(-200, -50);
         const a = new Asteroid(x, y);
         this.asteroids.push(a);
     }
