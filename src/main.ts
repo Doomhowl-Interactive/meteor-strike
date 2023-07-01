@@ -1,11 +1,15 @@
-import createTerrain from "./objects/Background";
-import Crystal from "./objects/Crystals";
 import { Drawable } from "./objects/Drawable";
-import Robot from "./objects/Robot";
-import Rocket from "./objects/Rocket";
 import { Camera } from "./types";
 import { unblurCanvas } from "./utils";
+
 import * as p5 from "p5";
+
+import Robot from "./objects/Robot";
+import Rocket from "./objects/Rocket";
+import createTerrain from "./objects/Background";
+import Crystal from "./objects/Crystals";
+
+// TODO: Pack textures with vite
 
 let camera: Camera = {
     x: 200,
@@ -37,7 +41,7 @@ export const sketch = (p: p5) => {
         p.background(11);
         p.noStroke();
         world.forEach((obj) => obj.draw(camera));
-    }
+    };
 };
 
 export const p: p5 = new p5(sketch, document.body);

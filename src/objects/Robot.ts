@@ -1,7 +1,10 @@
-import { delta, p } from "../main";
-import { Camera } from "../types";
-import { gTexture } from "../utils";
+import { delta, p } from "@/main";
 import { Drawable } from "./Drawable";
+import { Camera } from "@/types";
+
+import gTexture from "@/assets";
+import RobotMirrorImage from "@assets/robot_mirror.png";
+import RobotImage from "@assets/robot.png";
 
 export default class Robot implements Drawable {
     width = 16;
@@ -54,9 +57,9 @@ export default class Robot implements Drawable {
         p.translate(p.width / 2, p.height / 2);
         p.translate(this.width / -2, this.width / -2);
         if (flipX) {
-            p.image(gTexture("robot_mirror"), 0, 0, this.width, this.height);
+            p.image(gTexture(RobotMirrorImage), 0, 0, this.width, this.height);
         } else {
-            p.image(gTexture("robot"), 0, 0, this.width, this.height);
+            p.image(gTexture(RobotImage), 0, 0, this.width, this.height);
         }
         p.pop();
     }
