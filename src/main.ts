@@ -2,14 +2,13 @@ import { Drawable } from "./objects/Drawable";
 import { Camera } from "./types";
 import { unblurCanvas } from "./utils";
 
-import * as p5 from "p5";
+import p5 from "p5";
 
 import Robot from "./objects/Robot";
 import Rocket from "./objects/Rocket";
 import createTerrain from "./objects/Background";
 import Crystal from "./objects/Crystals";
-
-// TODO: Pack textures with vite
+import AsteroidHolder from "./objects/Asteroids";
 
 let camera: Camera = {
     x: 200,
@@ -34,6 +33,7 @@ export const sketch = (p: p5) => {
             new Robot(),
             new Crystal(370, 50, 0),
             new Crystal(420, 70, 1),
+            new AsteroidHolder(80, 600),
         ];
     };
 

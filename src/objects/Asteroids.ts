@@ -1,3 +1,4 @@
+import { Camera } from "@/types";
 import { delta, p } from "../main";
 import { Drawable } from "./Drawable";
 
@@ -7,7 +8,7 @@ class Asteroid implements Drawable {
     draw(): void {}
 }
 
-class AsteroidHolder implements Drawable {
+export default class AsteroidHolder implements Drawable {
     timer: number;
     asteroids: Asteroid[];
 
@@ -24,11 +25,14 @@ class AsteroidHolder implements Drawable {
         }
     }
 
-    draw(): void {
+    draw(camera: Camera): void {
+        p.push();
         p.stroke(255, 0, 0);
+        p.translate(-camera.x, -camera.y);
         p.line(this.leftBounds, 0, this.leftBounds, p.height);
         p.line(this.rightBounds, 0, this.rightBounds, p.height);
         p.noStroke();
+        p.pop();
     }
 
     spawnAsteroid() {
