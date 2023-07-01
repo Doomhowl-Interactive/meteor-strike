@@ -15,7 +15,6 @@ export default class CameraHolder implements Drawable {
         camera.x += (targetX - camera.x) * 0.1;
         camera.y += (targetY - camera.y) * 0.1;
 
-
         // clamp camera between field bounds
         const [left, right] = [getLeftFieldBounds(), getRightFieldBounds()];
         if (camera.x < left) {

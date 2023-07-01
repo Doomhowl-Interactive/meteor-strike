@@ -12,7 +12,7 @@ import AsteroidHolder from "./objects/Asteroids";
 import CameraHolder from "./objects/CameraHolder";
 import Gun from "./objects/Gun";
 
-let camera = new Camera({
+const camera = new Camera({
     x: 200,
     y: -55,
 });

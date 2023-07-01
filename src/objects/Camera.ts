@@ -1,5 +1,5 @@
-import {p} from "@/main";
-import {Point} from "@/types";
+import { p } from "@/main";
+import { Point } from "@/types";
 
 export class Camera extends Point {
     getMouse(): Point {
@@ -9,4 +9,3 @@ export class Camera extends Point {
         });
     }
 }
-

@@ -3,7 +3,7 @@ import { p } from "./main";
 import p5 from "p5";
 
 const _images = new Map<string, p5.Image>();
-export default function gTexture(img: string) {
+export default function gTexture(img: string): p5.Image {
     if (_images.has(img)) {
         return _images.get(img)!;
     }

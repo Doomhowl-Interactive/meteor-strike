@@ -16,11 +16,11 @@ export default class Gun implements Drawable {
 
         const angle = p.atan2(worldMouse.y - player.y, worldMouse.x - player.x);
 
-        let [posX, posY] = player.getCenter();
-        posX += 5;
+        const pos = player.getCenter();
+        pos.x += 5;
 
         p.push();
-        p.translate(posX, posY);
+        p.translate(pos.x, pos.y);
         p.translate(-camera.x, -camera.y);
         p.rotate(angle);
         p.fill(0);

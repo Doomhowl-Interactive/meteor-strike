@@ -1,11 +1,13 @@
-import { Camera } from "@/types";
 import { delta, p } from "../main";
+import { Camera } from "./Camera";
 import { Drawable } from "./Drawable";
 
 class Asteroid implements Drawable {
     constructor(public x: number, public y: number) {}
 
-    draw(): void {}
+    draw(): void {
+        console.error("Asteroid.draw() not implemented.");
+    }
 }
 
 let activeHolder: AsteroidHolder | null = null;
