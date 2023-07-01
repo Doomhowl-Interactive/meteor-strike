@@ -1,10 +1,14 @@
-import { delta, p } from "@/main";
+import { WIDTH, delta, p } from "@/main";
 import { Drawable } from "./Drawable";
 import { Camera } from "@/types";
 
 import gTexture from "@/assets";
 import RobotMirrorImage from "@assets/robot_mirror.png";
 import RobotImage from "@assets/robot.png";
+import {
+    getLeftFieldBounds as getLeftFieldBounds,
+    getRightFieldBounds,
+} from "./Asteroids";
 
 export default class Robot implements Drawable {
     width = 16;
@@ -46,6 +50,14 @@ export default class Robot implements Drawable {
 
         camera.x += this.velX * p.deltaTime;
         camera.y += this.velY * p.deltaTime;
+
+        // clamp camera between field bounds
+        const [left, right] = [getLeftFieldBounds(), getRightFieldBounds()];
+        if (camera.x < left) {
+            camera.x = left;
+        } else if (camera.x + WIDTH > right) {
+            camera.x = right - WIDTH;
+        }
     }
 
     draw(camera: Camera): void {

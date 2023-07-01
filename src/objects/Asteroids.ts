@@ -8,6 +8,8 @@ class Asteroid implements Drawable {
     draw(): void {}
 }
 
+let activeHolder: AsteroidHolder | null = null;
+
 export default class AsteroidHolder implements Drawable {
     timer: number;
     asteroids: Asteroid[];
@@ -15,6 +17,7 @@ export default class AsteroidHolder implements Drawable {
     constructor(public leftBounds: number, public rightBounds: number) {
         this.timer = 0;
         this.asteroids = [];
+        activeHolder = this;
     }
 
     update(): void {
@@ -41,4 +44,12 @@ export default class AsteroidHolder implements Drawable {
         const a = new Asteroid(x, y);
         this.asteroids.push(a);
     }
+}
+
+export function getLeftFieldBounds(): number {
+    return activeHolder?.leftBounds ?? 0;
+}
+
+export function getRightFieldBounds(): number {
+    return activeHolder?.rightBounds ?? 0;
 }

@@ -10,6 +10,9 @@ import createTerrain from "./objects/Background";
 import Crystal from "./objects/Crystals";
 import AsteroidHolder from "./objects/Asteroids";
 
+export const WIDTH = 320;
+export const HEIGHT = 180;
+
 let camera: Camera = {
     x: 200,
     y: -55,
@@ -23,7 +26,7 @@ export function delta() {
 
 export const sketch = (p: p5) => {
     p.setup = () => {
-        p.createCanvas(320, 180);
+        p.createCanvas(WIDTH, HEIGHT);
         p.frameRate(60);
         unblurCanvas();
 
