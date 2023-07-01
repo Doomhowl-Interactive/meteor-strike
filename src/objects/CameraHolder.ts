@@ -1,4 +1,4 @@
-import { Camera } from "@/types";
+import { Camera } from "./Camera";
 import { Drawable } from "./Drawable";
 import { getLeftFieldBounds, getRightFieldBounds } from "./Asteroids";
 import { getActivePlayer } from "./Robot";

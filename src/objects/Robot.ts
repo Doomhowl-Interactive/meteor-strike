@@ -1,13 +1,14 @@
 import { delta, p } from "@/main";
 import { Drawable } from "./Drawable";
-import { Camera, Point } from "@/types";
+import { Point } from "@/types";
 
 import gTexture from "@/assets";
 import RobotMirrorImage from "@assets/robot_mirror.png";
 import RobotImage from "@assets/robot.png";
+import { Camera } from "./Camera";
 
 let active: Robot | null = null;
-export default class Robot implements Drawable, Point {
+export default class Robot extends Point implements Drawable {
     width = 16;
     height = 22;
     velX = 0;
@@ -15,12 +16,12 @@ export default class Robot implements Drawable, Point {
     maxSpeed = 0.1;
 
     constructor(public x: number, public y: number) {
-        this.x = x;
-        this.y = y;
+        super({ x, y });
         active = this;
     }
 
     update(): void {
+        // player movement
         const accel = 0.5;
         if (p.keyIsDown(p.LEFT_ARROW)) {
             this.velX -= delta() * accel;
@@ -69,6 +70,13 @@ export default class Robot implements Drawable, Point {
             p.image(gTexture(RobotImage), 0, 0, this.width, this.height);
         }
         p.pop();
+    }
+
+    getCenter(): Point {
+        return new Point({
+            x: this.x + this.width / 2,
+            y: this.y + this.height / 2,
+        });
     }
 }
 
