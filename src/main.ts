@@ -9,9 +9,7 @@ import Rocket from "./objects/Rocket";
 import createTerrain from "./objects/Background";
 import Crystal from "./objects/Crystals";
 import AsteroidHolder from "./objects/Asteroids";
-
-export const WIDTH = 320;
-export const HEIGHT = 180;
+import CameraHolder from "./objects/CameraHolder";
 
 let camera: Camera = {
     x: 200,
@@ -26,14 +24,15 @@ export function delta() {
 
 export const sketch = (p: p5) => {
     p.setup = () => {
-        p.createCanvas(WIDTH, HEIGHT);
+        p.createCanvas(320, 180);
         p.frameRate(60);
         unblurCanvas();
 
         world = [
             createTerrain(),
+            new CameraHolder(),
             new Rocket(),
-            new Robot(),
+            new Robot(300, 90),
             new Crystal(370, 50, 0),
             new Crystal(420, 70, 1),
             new AsteroidHolder(80, 600),

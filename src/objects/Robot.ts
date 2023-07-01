@@ -1,23 +1,26 @@
-import { WIDTH, delta, p } from "@/main";
+import { delta, p } from "@/main";
 import { Drawable } from "./Drawable";
-import { Camera } from "@/types";
+import { Camera, Point } from "@/types";
 
 import gTexture from "@/assets";
 import RobotMirrorImage from "@assets/robot_mirror.png";
 import RobotImage from "@assets/robot.png";
-import {
-    getLeftFieldBounds as getLeftFieldBounds,
-    getRightFieldBounds,
-} from "./Asteroids";
 
-export default class Robot implements Drawable {
+let active: Robot | null = null;
+export default class Robot implements Drawable, Point {
     width = 16;
     height = 22;
     velX = 0;
     velY = 0;
     maxSpeed = 0.1;
 
-    update(camera: Camera): void {
+    constructor(public x: number, public y: number) {
+        this.x = x;
+        this.y = y;
+        active = this;
+    }
+
+    update(): void {
         const accel = 0.5;
         if (p.keyIsDown(p.LEFT_ARROW)) {
             this.velX -= delta() * accel;
@@ -48,26 +51,18 @@ export default class Robot implements Drawable {
         this.velX *= 0.99;
         this.velY *= 0.99;
 
-        camera.x += this.velX * p.deltaTime;
-        camera.y += this.velY * p.deltaTime;
-
-        // clamp camera between field bounds
-        const [left, right] = [getLeftFieldBounds(), getRightFieldBounds()];
-        if (camera.x < left) {
-            camera.x = left;
-        } else if (camera.x + WIDTH > right) {
-            camera.x = right - WIDTH;
-        }
+        this.x += this.velX * p.deltaTime;
+        this.y += this.velY * p.deltaTime;
     }
 
     draw(camera: Camera): void {
-        this.update(camera);
+        this.update();
 
         const flipX = this.velX < 0;
 
         p.push();
-        p.translate(p.width / 2, p.height / 2);
-        p.translate(this.width / -2, this.width / -2);
+        p.translate(this.x, this.y);
+        p.translate(-camera.x, -camera.y);
         if (flipX) {
             p.image(gTexture(RobotMirrorImage), 0, 0, this.width, this.height);
         } else {
@@ -75,4 +70,8 @@ export default class Robot implements Drawable {
         }
         p.pop();
     }
+}
+
+export function getActivePlayer(): Robot | null {
+    return active;
 }
