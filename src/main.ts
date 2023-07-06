@@ -1,6 +1,7 @@
 import { disableNavigation, unblurCanvas } from "./utils";
 
 import p5 from "p5";
+import "./styles.css";
 
 import Player from "./objects/Player";
 import Rocket from "./objects/Rocket";
@@ -23,12 +24,18 @@ export function delta() {
     return p.deltaTime / 1000;
 }
 
+function changeZoomLevel(amount: number) {
+    (document.body.style as any).zoom = amount;
+}
+
 export const sketch = (p: p5) => {
     p.setup = () => {
         p.createCanvas(320, 180);
         p.frameRate(60);
+
         unblurCanvas();
         disableNavigation();
+        changeZoomLevel(3);
 
         world = [
             createTerrain(),
