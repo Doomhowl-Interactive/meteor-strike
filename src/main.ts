@@ -12,6 +12,7 @@ import CameraHolder from "./objects/CameraHolder";
 import Drawable from "./objects/Drawable";
 import Camera from "./objects/Camera";
 import Gun from "./objects/Gun";
+import initGUI from "./gui";
 
 const camera = new Camera({
     x: 200,
@@ -24,18 +25,14 @@ export function delta() {
     return p.deltaTime / 1000;
 }
 
-function changeZoomLevel(amount: number) {
-    (document.body.style as any).zoom = amount;
-}
-
 export const sketch = (p: p5) => {
     p.setup = () => {
-        p.createCanvas(320, 180);
+        p.createCanvas(p.windowWidth, p.windowHeight);
         p.frameRate(60);
 
         unblurCanvas();
         disableNavigation();
-        changeZoomLevel(3);
+        initGUI();
 
         world = [
             createTerrain(),
@@ -53,6 +50,10 @@ export const sketch = (p: p5) => {
         p.background(11);
         p.noStroke();
         world.forEach((obj) => obj.draw(camera));
+    };
+
+    p.windowResized = () => {
+        p.resizeCanvas(p.windowWidth, p.windowHeight);
     };
 };
 
