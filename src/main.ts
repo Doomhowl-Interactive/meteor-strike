@@ -14,7 +14,7 @@ import Camera from "./objects/Camera";
 import Gun from "./objects/Gun";
 import initGUI from "./gui";
 
-const camera = new Camera({
+export const camera = new Camera({
     x: 200,
     y: -55,
 });
@@ -27,7 +27,7 @@ export function delta() {
 
 export const sketch = (p: p5) => {
     p.setup = () => {
-        p.createCanvas(p.windowWidth, p.windowHeight);
+        p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
         p.frameRate(60);
 
         unblurCanvas();
@@ -36,7 +36,7 @@ export const sketch = (p: p5) => {
 
         world = [
             createTerrain(),
-            new CameraHolder(),
+            new CameraHolder(camera),
             new Rocket(),
             new Player(300, 90),
             new Gun(),
@@ -48,8 +48,9 @@ export const sketch = (p: p5) => {
 
     p.draw = () => {
         p.background(11);
+        camera.draw();
         p.noStroke();
-        world.forEach((obj) => obj.draw(camera));
+        world.forEach((obj) => obj.draw());
     };
 
     p.windowResized = () => {

@@ -2,13 +2,11 @@ import { p } from "../main";
 import { rng } from "../utils";
 
 import * as p5 from "p5";
-import Camera from "./Camera";
 import Drawable from "./Drawable";
 
 interface TerrainLayer {
     yOffset: number;
     yScale: number;
-    parallax: number;
     spacing: number;
     col: p5.Color;
 }
@@ -21,16 +19,14 @@ class Terrain implements Drawable {
         return rng(index) * layer.yScale;
     }
 
-    drawLayer(camera: Camera, layer: TerrainLayer) {
+    drawLayer(layer: TerrainLayer, depth: number = 0) {
+        const count = 30;
+        const width = count * layer.spacing;
         p.push();
-        p.translate(
-            -camera.x * layer.parallax,
-            -camera.y - layer.yOffset * layer.parallax
-        );
+        p.translate(-width / 2, layer.yOffset, -depth);
         p.fill(layer.col);
         p.beginShape();
         p.vertex(0, p.height);
-        const count = 30;
         for (let x = 0; x <= count; x++) {
             p.vertex(x * layer.spacing, this.graph(layer, x));
         }
@@ -39,10 +35,10 @@ class Terrain implements Drawable {
         p.pop();
     }
 
-    draw(camera: Camera): void {
-        for (const layer of this.layers) {
-            this.drawLayer(camera, layer);
-        }
+    draw(): void {
+        this.layers.forEach((layer, i) => {
+            this.drawLayer(layer, i);
+        });
     }
 }
 
@@ -52,14 +48,12 @@ export default function createTerrain() {
             col: p.color(85, 79, 87),
             yOffset: 80,
             yScale: 30,
-            parallax: 0.4,
             spacing: 20,
         },
         {
             col: p.color(180),
             yOffset: -20,
             yScale: 30,
-            parallax: 0.6,
             spacing: 30,
         },
     ]);

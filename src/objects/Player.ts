@@ -57,14 +57,13 @@ export default class Player extends Point implements Drawable {
         this.y += this.velY * p.deltaTime;
     }
 
-    draw(camera: Camera): void {
+    draw(): void {
         this.update();
 
         const flipX = this.velX < 0;
 
         p.push();
         p.translate(this.x, this.y);
-        p.translate(-camera.x, -camera.y);
         if (flipX) {
             p.image(gTexture(RobotMirrorImage), 0, 0, this.width, this.height);
         } else {

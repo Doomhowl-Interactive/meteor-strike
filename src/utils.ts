@@ -16,10 +16,8 @@ export function disableNavigation() {
 
 export function unblurCanvas() {
     const ctx = document.querySelector("canvas")?.getContext("2d");
-    if (!ctx) {
-        throw new Error("Canvas not found");
+    if (ctx) {
+        ctx.imageSmoothingEnabled = false;
+        (ctx as any).style = "image-rendering: pixelated";
     }
-
-    ctx.imageSmoothingEnabled = false;
-    (ctx as any).style = "image-rendering: pixelated";
 }

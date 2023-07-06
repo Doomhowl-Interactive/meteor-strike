@@ -1,7 +1,6 @@
 import { delta, p } from "../main";
 
 import Drawable from "./Drawable";
-import Camera from "../objects/Camera";
 
 class Asteroid implements Drawable {
     constructor(public x: number, public y: number) {}
@@ -31,10 +30,9 @@ export default class AsteroidHolder implements Drawable {
         }
     }
 
-    draw(camera: Camera): void {
+    draw(): void {
         p.push();
         p.stroke(255, 0, 0);
-        p.translate(-camera.x, -camera.y);
         p.line(this.leftBounds, 0, this.leftBounds, p.height);
         p.line(this.rightBounds, 0, this.rightBounds, p.height);
         p.noStroke();

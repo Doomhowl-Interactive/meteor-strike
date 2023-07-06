@@ -1,7 +1,6 @@
 import { p } from "../main";
 
 import gTexture from "../assets";
-import Camera from "../objects/Camera";
 import Drawable from "./Drawable";
 
 import BlueCrystalImage from "@assets/BlueCrystal.png";
@@ -11,9 +10,8 @@ import WhiteCrystalImage from "@assets/WhiteCrystal.png";
 export default class Crystal implements Drawable {
     constructor(public x: number, public y: number, public value: number) {}
 
-    draw(camera: Camera): void {
+    draw(): void {
         p.push();
-        p.translate(-camera.x, -camera.y);
         p.translate(this.x, this.y);
         switch (this.value) {
             case 0:
