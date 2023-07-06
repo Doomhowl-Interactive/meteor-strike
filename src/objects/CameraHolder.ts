@@ -1,8 +1,9 @@
-import { Camera } from "./Camera";
-import { Drawable } from "./Drawable";
 import { getLeftFieldBounds, getRightFieldBounds } from "./Asteroids";
-import { getActivePlayer } from "./Robot";
+import { getActivePlayer } from "./Player";
 import { p } from "@/main";
+
+import Camera from "../objects/Camera";
+import Drawable from "./Drawable";
 
 export default class CameraHolder implements Drawable {
     draw(camera: Camera): void {

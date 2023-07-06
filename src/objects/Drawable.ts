@@ -1,6 +1,5 @@
-import { Point } from "../types";
-import { Camera } from "./Camera";
+import Camera from "../objects/Camera";
 
-export interface Drawable {
+export default interface Drawable {
     draw(camera: Camera): void;
 }

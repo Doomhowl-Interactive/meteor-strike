@@ -1,14 +1,15 @@
 import { delta, p } from "@/main";
-import { Drawable } from "./Drawable";
 import { Point } from "@/types";
 
 import gTexture from "@/assets";
 import RobotMirrorImage from "@assets/robot_mirror.png";
 import RobotImage from "@assets/robot.png";
-import { Camera } from "./Camera";
+import Camera from "../objects/Camera";
+import Drawable from "./Drawable";
+import isKeyDown, { PLAYER } from "@/keys";
 
-let active: Robot | null = null;
-export default class Robot extends Point implements Drawable {
+let active: Player | null = null;
+export default class Player extends Point implements Drawable {
     width = 16;
     height = 22;
     velX = 0;
@@ -23,16 +24,16 @@ export default class Robot extends Point implements Drawable {
     update(): void {
         // player movement
         const accel = 0.5;
-        if (p.keyIsDown(p.LEFT_ARROW)) {
+        if (isKeyDown(PLAYER.LEFT)) {
             this.velX -= delta() * accel;
         }
-        if (p.keyIsDown(p.RIGHT_ARROW)) {
+        if (isKeyDown(PLAYER.RIGHT)) {
             this.velX += delta() * accel;
         }
-        if (p.keyIsDown(p.UP_ARROW)) {
+        if (isKeyDown(PLAYER.UP)) {
             this.velY -= delta() * accel;
         }
-        if (p.keyIsDown(p.DOWN_ARROW)) {
+        if (isKeyDown(PLAYER.DOWN)) {
             this.velY += delta() * accel;
         }
 
@@ -80,6 +81,6 @@ export default class Robot extends Point implements Drawable {
     }
 }
 
-export function getActivePlayer(): Robot | null {
+export function getActivePlayer(): Player | null {
     return active;
 }

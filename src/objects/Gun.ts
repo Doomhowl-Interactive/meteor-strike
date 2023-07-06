@@ -1,8 +1,9 @@
 import { p } from "@/main";
 import { Point } from "@/types";
-import { Camera } from "./Camera";
-import { Drawable } from "./Drawable";
-import { getActivePlayer } from "./Robot";
+import { getActivePlayer } from "./Player";
+
+import Camera from "../objects/Camera";
+import Drawable from "./Drawable";
 
 export default class Gun implements Drawable {
     draw(camera: Camera): void {

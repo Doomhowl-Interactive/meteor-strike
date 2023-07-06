@@ -1,8 +1,9 @@
 import { p } from "../main";
-import { Camera } from "../types";
 import { rng } from "../utils";
-import { Drawable } from "./Drawable";
+
 import * as p5 from "p5";
+import Camera from "./Camera";
+import Drawable from "./Drawable";
 
 interface TerrainLayer {
     yOffset: number;

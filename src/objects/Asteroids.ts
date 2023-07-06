@@ -1,6 +1,7 @@
 import { delta, p } from "../main";
-import { Camera } from "./Camera";
-import { Drawable } from "./Drawable";
+
+import Drawable from "./Drawable";
+import Camera from "../objects/Camera";
 
 class Asteroid implements Drawable {
     constructor(public x: number, public y: number) {}

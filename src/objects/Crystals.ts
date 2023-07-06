@@ -1,7 +1,8 @@
 import { p } from "../main";
-import { Camera } from "../types";
-import { Drawable } from "./Drawable";
+
 import gTexture from "../assets";
+import Camera from "../objects/Camera";
+import Drawable from "./Drawable";
 
 import BlueCrystalImage from "@assets/BlueCrystal.png";
 import GreenCrystalImage from "@assets/GreenCrystal.png";

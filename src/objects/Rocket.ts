@@ -1,8 +1,8 @@
 import { p } from "@/main";
-import { Camera } from "@/types";
-import { Drawable } from "./Drawable";
 
 import gTexture from "@/assets";
+import Camera from "../objects/Camera";
+import Drawable from "./Drawable";
 import SpaceShipImage from "@assets/spaceship2.png";
 
 export default class Rocket implements Drawable {
